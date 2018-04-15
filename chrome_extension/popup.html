@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <title>VidSearch</title>
+
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <style>
+      button {
+        height: 30px;
+        width: 30px;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body onload="">
+  	<div class="container">
+  		<div class="row">
+  			<h1>VidSearch</h1>
+  		</div>
+  		<div class="row">
+  			<div id="textDiv"></div>		<!-- this will display the video name -->
+        <button id="downloadButton" style="width:100px" disabled="disabled">Download</button>
+  		</div>
+  		<div class="row">
+  			<input type="text" id="objectName">
+  			<label><button id="searchButton" style="width:75px">Search</button></label>
+  		</div>
+  	</div>
+  </body>
+  <script src="js/popup.js"></script>
+</html>
+
+
+<!-- TODO:
+	Extension:
+	1) Loading animation: Parsing video
+	2) Store all objects found along with timestamp (range: start to finish)
+	3) filter out results (human, table, ...)
+	4) search for specific result (dynamic display)
+	5) Click on timestamp: go to beginning
+	6) Click enter to search
+	Python:
+	1) tensorflow: Skip consecutive frames (maybe)
+	2) Webserver: download python video from https://stackoverflow.com/questions/40713268/download-youtube-video-using-python
+	3) 
+	-->
