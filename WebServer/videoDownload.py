@@ -25,5 +25,5 @@ def vidDownload(videoID):
 	with youtube_dl.YoutubeDL(ydl_opts) as ydl:
 		ydl.download([URL])
 
-def detectObject(videoID):
+#def detectObject(videoID):
 	
