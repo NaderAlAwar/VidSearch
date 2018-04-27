@@ -18,12 +18,10 @@ def my_hook(d):
         print('Done downloading, now converting ...')
 
 
-ydl_opts = {}
+ydl_opts = {'outtmpl': 'video/video'}
 
 def vidDownload(videoID):
 	URL = "https://www.youtube.com/watch?v=" + videoID
 	with youtube_dl.YoutubeDL(ydl_opts) as ydl:
 		ydl.download([URL])
-
-#def detectObject(videoID):
 	

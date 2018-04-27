@@ -123,7 +123,6 @@ def getObjectsInFrames(numberOfFrames):                 #numberOfFrames is the n
 
   # In[ ]:
   results = []                    # will hold a list of objects for each 'i', which is the image number
-  image_counter = 0
   for image_path in TEST_IMAGE_PATHS:
     temp_results = []
     image = Image.open(image_path)
