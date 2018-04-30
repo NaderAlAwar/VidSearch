@@ -4,14 +4,10 @@
 
 'use strict';
 
-let changeColor = document.getElementById('changeColor');
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
 
 var url;
 var id;
+var receivedObjects;
 
 $( document ).ready(function() {  
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
@@ -28,6 +24,7 @@ $( document ).ready(function() {
           URLdisplay.innerHTML = data.title;
       });
         document.getElementById("downloadButton").disabled = false;
+        document.getElementById("searchButton").disabled = true;
       }
   });
 });
@@ -35,12 +32,44 @@ $( document ).ready(function() {
 //TODO: send request to download video to server, then wait for confirmation
 
 $('#downloadButton').click(function(){
-  $.get("http://127.0.0.1:5000/downloadVideo/"+id, function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
+  $.getJSON("http://127.0.0.1:5000/downloadVideo/"+id, function(json){
+    receivedObjects = json;
+    console.log(receivedObjects);
     document.getElementById("downloadButton").disabled = true;
+    document.getElementById("searchButton").disabled = false;
   });
 });
 
+function secondsToTime(d) {
+    d = Number(d);
+    if(d==0){
+      return "0 seconds";
+    }
+    var h = Math.floor(d / 3600);
+    var m = Math.floor(d % 3600 / 60);
+    var s = Math.floor(d % 3600 % 60);
+
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    return hDisplay + mDisplay + sDisplay; 
+}
+
 $('#searchButton').click(function(){
-  
+  var searchTerm = $('#objectName').val();
+  var results = [];
+  var i;
+  var j;
+  for (i = 0; i < receivedObjects.length; i++) { 
+    for(j = 0; j < receivedObjects[i].length; j++){
+      if(receivedObjects[i][j] === searchTerm){
+        results.push(i);
+      }
+    }
+  }
+  var list = $('<ol />');
+  jQuery.each(results, function(index, value) {
+    $('<li />', {text: secondsToTime(value)}).appendTo(list);
+  });
+  $('body').append(list);
 });

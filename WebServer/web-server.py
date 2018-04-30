@@ -4,6 +4,8 @@ from json import dumps
 from flask_jsonpify import jsonify
 from videoDownload import vidDownload
 from getFrames import getFrames
+from flask_cors import CORS
+import json
 import sys
 
 sys.path.insert(0,'/home/nader/Projects/VidSearch/classifier')
@@ -12,20 +14,17 @@ from tf_caller import detectObjects
 
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 
-
-class downloadVideo(Resource):
-	def get(self, videoID):
+@app.route('/downloadVideo/<videoID>')
+def downloadVideo(videoID):
 		vidDownload(videoID)
 		numberOfFrames = getFrames("1")
-		print(numberOfFrames)
-		print(detectObjects(numberOfFrames))
-
-		
-
-api.add_resource(downloadVideo, '/downloadVideo/<videoID>')
-
+		objectsFound = detectObjects(numberOfFrames)
+		objectsJSON = jsonify(objectsFound)
+		objectsJSON.status_code = 200
+		return objectsJSON
 
 if __name__ == '__main__':
 	app.run(port=5000)
