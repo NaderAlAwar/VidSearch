@@ -11,6 +11,7 @@ var receivedObjects;
 var player;
 var query = { active: true, currentWindow: true };
 var tabId;
+var downloadDisplay;
 
 function callback(tabs) {
   var currentTab = tabs[0]; // there will be only one in this array
@@ -41,22 +42,24 @@ $( document ).ready(function() {
           {format: 'json', url: url}, function (data) {
           URLdisplay.innerHTML = data.title;
       });
-        document.getElementById("downloadButton").disabled = false;
         document.getElementById("searchButton").disabled = true;
+        downloadDisplay = document.getElementById('downloadingVideo');
+        downloadDisplay.innerHTML = "Downloading video ...";
+        getVideo();
       }
   });
 });
 
 //TODO: send request to download video to server, then wait for confirmation
 
-$('#downloadButton').click(function(){
+function getVideo(){
   $.getJSON("http://127.0.0.1:5000/downloadVideo/"+id, function(json){
     receivedObjects = json;
     console.log(receivedObjects);
-    document.getElementById("downloadButton").disabled = true;
     document.getElementById("searchButton").disabled = false;
+    downloadDisplay.innerHTML = "Download finished";
   });
-});
+};
 
 function secondsToTime(d) {
     d = Number(d);
