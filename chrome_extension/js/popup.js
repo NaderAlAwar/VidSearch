@@ -8,11 +8,29 @@
 var url;
 var id;
 var receivedObjects;
+var player;
+var query = { active: true, currentWindow: true };
+var tabId;
+
+function callback(tabs) {
+  var currentTab = tabs[0]; // there will be only one in this array
+  tabId = currentTab.id;
+}
+
+function skipToTime(time){
+  console.log('Clicked tab with seconds equals ', time);
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {"message": "skip-to-time", "time": time, "id" : id}, function(response) {
+         console.log(response);
+    });
+  });
+}
 
 $( document ).ready(function() {  
   chrome.tabs.query({'active': true, 'lastFocusedWindow': true}, function (tabs) {
       url = tabs[0].url;
       let URLdisplay = document.getElementById('textDiv');
+
       var checkURL = url.search("watch");           //checks if URL contains "watch", if the user has opened a youtube video
       if(checkURL == -1){                   //if the user has not opened a youtube video
         URLdisplay.innerHTML = "Click on a youtube video to begin your search";
@@ -67,9 +85,28 @@ $('#searchButton').click(function(){
       }
     }
   }
-  var list = $('<ol />');
+  try{
+    document.getElementById("list").remove();
+  }
+  catch{
+
+  }
+  var list = $('<ol id = "list"/>');
   jQuery.each(results, function(index, value) {
-    $('<li />', {text: secondsToTime(value)}).appendTo(list);
+    var id = value + '';
+    var obj = $('<li />', {text: secondsToTime(value)});
+    obj.attr("id",id);
+    // obj.attr("onmouseover","");
+    obj.attr("style","cursor: pointer;");
+    obj.css('color','blue');
+    obj.appendTo(list);
   });
-  $('body').append(list);
+  $('#objs').append(list);
+  $(document).on('click','li',function(){
+    skipToTime(Number($(this).attr("id")));
+  })
+
 });
+
+
+

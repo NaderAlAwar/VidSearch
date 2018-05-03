@@ -3,6 +3,11 @@
 	"version": "1.0",
 	"description": "Search for objects in online videos",
 	"permissions": ["declarativeContent","storage","tabs"],
+	"content_scripts" : [{
+        "matches" : [ "*://www.youtube.com/*"],
+        "js" : ["js/contentScript.js"]
+    }],
+    "web_accessible_resources": ["js/popup.js"],
 	"background": {
 		"scripts": ["js/background.js"],
 		"persistent": false
