@@ -1,0 +1,1 @@
+This directory contains the images extracted from the video
