@@ -4,7 +4,7 @@ The chrome_extension folder contains the source code file for the extension. The
 # Installation Instructions
 
 ## Extension
-In order to run the extension, open chrome, and go to chrome://extensions. Enable developer mode, click on load unpacked and select the directory that contains the manifest.json file. At this point, a greyed out button should appear in the top right. To test the extension, go to youtube.com, and then click on a video.
+In order to run the extension, open chrome, and go to chrome://extensions. Enable developer mode, click on load unpacked and select the directory that contains the manifest.json file (the manifest.json file is located in the chrome_extension directory). At this point, a greyed out button should appear in the top right. To test the extension, go to youtube.com, and then click on a video.
 
 ## Classifier
 For the classifier to work, follow these steps. Note that the classifier requires Python 3.
