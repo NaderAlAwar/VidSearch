@@ -1,11 +1,12 @@
 import sys
+import os
 
-sys.path.insert(0, '/home/nader/tensorflow/models/research')
-sys.path.insert(0, '/home/nader/tensorflow/models/research/object_detection')
-from object_detection import object_detection_tutorial
+sys.path.insert(0, os.environ.get('TFPATH')+'/models/research')
+sys.path.insert(0, os.environ.get('TFPATH')+'/models/research/object_detection')
+from object_detection import object_detector
 
 def detectObjects(frames):
-	return object_detection_tutorial.getObjectsInFrames(frames)
+	return object_detector.getObjectsInFrames(frames)
 
 
 
