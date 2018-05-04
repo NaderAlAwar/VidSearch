@@ -15,11 +15,12 @@ For the classifier to work, follow these steps. Note that the classifier require
 
 ## Web Server
 For the web server to work, follow these steps. Note that the web server requires Python 3 as well.
-1. Run the following command in order to install the necessary packages
+1. Run the following command in order to install the necessary
   `pip3 install flask flask_restful flask_cors flask_jsonpify youtube_dl`
 2. Run the following command in order to install ffmpeg `sudo apt-get install ffmpeg`
 
 # Running VidSearch
 
 Run the web server by navigating to VidSearch/WebServer and running the command `python3 web-server.py`. Open chrome and navigate to youtube.com. Click on a video and click on the extension's icon in the top right. Once the extension opens, the video will start downloading (note that if the extension is closed and opened again, the video will start downloading again. For the extension to remain open, right click inside it and click on inspect. This will open the developer tools and will ensure that the extension remain open even after switching windows.). Note that the classification might take a while, especially if tensorflow is running on the CPU.
+
 Once the download finishes and the results are sent back, you will be able to search for any detected object in the video by entering the object's name in the textbox and clicking search. This will display a list of timestamps in which the classifier was able to find an instance of that object. Click on any timestamp in order to seek to that part of the video.
